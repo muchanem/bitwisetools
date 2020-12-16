@@ -1,3 +1,3 @@
 # decodebitwise
 
-An extremely simply rust library crate that decodes bitwise fields
+An extremely simple rust library crate that decodes and encodes bitwise fields only using the standard library
