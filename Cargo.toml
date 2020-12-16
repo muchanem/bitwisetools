@@ -6,7 +6,8 @@ edition = "2018"
 license = "GPL-3.0"
 description = "Encode and decode bitwise fields"
 readme = "README.md"
-homepage = "gitlab.com"
+homepage = "https://gitlab.com/pztron/rust/bitwisetools"
+repository = "https://gitlab.com/pztron/rust/bitwisetools"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
