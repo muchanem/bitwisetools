@@ -21,7 +21,7 @@ mod tests {
 /// ```
 /// let reference = vec!["thing1", "thing2", "thing3"];
 /// let array = bitwisetools::decode_bitwise(reference, 5);
-/// assert_eq!(["thing1", "thing3"], array);
+/// assert_eq!(vec!["thing1", "thing3"], array);
 /// ```  
 pub fn decode_bitwise<T>(i: T, n: u32) -> T
 where
@@ -39,7 +39,7 @@ where
 /// ```
 /// let reference = vec!["thing1", "thing2", "thing3"];
 /// let actual = vec!["thing1", "thing3"];
-/// let field = encode_bitwise(reference, actual) 
+/// let field = bitwisetools::encode_bitwise(reference, actual); 
 /// assert_eq!(5, field)
 /// ```
  
@@ -47,11 +47,12 @@ pub fn encode_bitwise<T>(r: T, w: T) -> u32
 where
     T: IntoIterator,
     <T as std::iter::IntoIterator>::IntoIter: std::clone::Clone,
-    <T as std::iter::IntoIterator>::Item: std::cmp::PartialEq
+    <T as std::iter::IntoIterator>::Item: std::cmp::PartialEq,
+    <T as std::iter::IntoIterator>::Item: std::fmt::Debug
 {
     let ri = r.into_iter();
     let mut n = 0;
-    w.into_iter().for_each(|x| n += 1 << ri.clone().position(|v| v == x).unwrap_or(0));
+    w.into_iter().for_each(|x| n += 1 << ri.clone().position(|v| v == x).ok_or(format!("item \"{:?}\" not found in reference collection", x)).unwrap());
     n as u32
 }
  
